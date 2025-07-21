@@ -1,6 +1,6 @@
 from appwrite.client import Client
 from appwrite.services.databases import Databases
-from flask import Flask
+from flask import Flask, request, jsonify
 
 app = Flask(__name__)
 
@@ -29,6 +29,17 @@ def get_inventory():
     database_id = '680c778b000f055f6409',
     collection_id = '6876282f0003d93246fe',
     queries = []
+    )
+    return result
+
+@app.post("/inventory")
+def post_inventory():
+    resquest_data = request.get_json()
+    result = databases.create_document(
+        database_id = '680c778b000f055f6409',
+        collection_id = '6876282f0003d93246fe',
+        document_id = 'unique()',
+        data = resquest_data,
     )
     return result
 
